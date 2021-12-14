@@ -1,0 +1,1 @@
+select LoadPercentage from CIM_Processor

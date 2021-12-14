@@ -1,0 +1,1 @@
+SELECT PercentProcessorTime FROM Win32_PerfFormattedData_Counters_ProcessorInformation

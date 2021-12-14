@@ -1,0 +1,1 @@
+Select state From Win32_Service Where Name = "SENS" 

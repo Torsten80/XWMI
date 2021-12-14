@@ -1,0 +1,1 @@
+SELECT Caption,Description, Size,  FreeSpace    FROM Win32_LogicalDisk

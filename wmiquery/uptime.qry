@@ -1,0 +1,1 @@
+Select SystemUptime from Win32_PerfFormattedData_PerfOS_System

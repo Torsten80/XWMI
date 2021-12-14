@@ -1,0 +1,1 @@
+select Name,IDProcess,PercentProcessorTime,Timestamp_Sys100NS from Win32_PerfRawData_PerfProc_Process

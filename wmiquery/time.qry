@@ -1,0 +1,1 @@
+Select  year, month ,day, hour, minute, second from Win32_UTCTime
