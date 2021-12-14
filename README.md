@@ -1,4 +1,4 @@
-# XWMI-
+# XWMI
 replacement for check_wmi_plus 
 
 (because of MS november-2021-patchday)
