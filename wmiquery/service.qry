@@ -1,0 +1,1 @@
+Select Name,DisplayName, state,startmode ,status From Win32_Service 

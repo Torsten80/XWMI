@@ -1,0 +1,1 @@
+SELECT NumberOfLogicalProcessors FROM Win32_ComputerSystem

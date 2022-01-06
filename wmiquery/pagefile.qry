@@ -1,0 +1,1 @@
+Select Name,AllocatedBaseSize,CurrentUsage,PeakUsage from Win32_PageFileUsage
