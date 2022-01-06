@@ -5,11 +5,11 @@
 # service check
 #
 # parameter:
-# $1: host $2: mode (normal or auto) $3 service(s) $4 warn  $5 critical
+# $1: host $2: mode (normal or auto) $3 service(s) $4 warn  $5 critical 
 # if auto $ exclude services
 # don't use normal with more than one service! performance issue!
 #
-# examples:  /usr/local/nagios/libexec/check_Xwmi_service.sh 111.22.100.42 normal spool
+# examples:  /usr/local/nagios/libexec/check_Xwmi_service.sh 111.22.100.42 normal spool 
  #           /usr/local/nagios/libexec/check_Xwmi_service.sh 111.22.100.42 auto snow,win,RemoteRegistry
 #
 
@@ -56,8 +56,8 @@ mydir=$(dirname "$0")
 myquery="service.qry"
 
 if  [ "$MODE" = "normal" ] ; then
-  echo "Select Name,DisplayName, state,startmode ,status From Win32_Service where name like \"%$3%\"" > /usr/local/nagios/libexec/wmiquery/tmp/servicetest."$1"
-  myquery="tmp/servicetest.$1"
+  echo "Select Name,DisplayName, state,startmode ,status From Win32_Service where name like \"%$3%\"" > /usr/local/nagios/libexec/wmiquery/tmp/servicetest."$1$3"
+  myquery="tmp/servicetest.$1$3"
 fi
 
 
@@ -87,7 +87,7 @@ do
  MYstate=${a[3]}
  MYstartmode=${a[2]}
 # MYstatus=${a[4]}
-
+ 
  MY1=$(echo "$MYDisplayName" | grep -i $MYOPT -c "$EXIN")
 
 
@@ -105,9 +105,9 @@ do
   else
     MYCOUNT=$((MYCOUNT+1))
    MYRESULT+="$MYDisplayName($MYNAME), "
-  fi
+  fi 
  fi
-
+ 
 done
 
 
@@ -125,8 +125,11 @@ if [ "$MYRESULT" ] ; then
  else
   MYRESULT="all running"
 fi
-
+ 
 
 
 echo "$MYlocated services located $MYCOUNT with problems  $MYRESULT"
 exit $MYSTATE
+
+
+
