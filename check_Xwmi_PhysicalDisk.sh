@@ -5,7 +5,9 @@
 # check Disk IO
 #
 #
-
+# 20.01.2022 For performance reasons, the query is only written to the temp folder the first time.
+# If you want to change it you have to call the script once (or always) with the parameter -r 1 for reset.
+# wmiquery1.sh is used
 
 
 STATE_OK=0
@@ -21,7 +23,7 @@ MYCOUNT=0
 CRIT=80
 WARN=50
 
-while getopts H:b:n:e:o:m:l:c:s:t:v:w:C:i:p:help:h option;
+while getopts H:b:n:e:o:m:l:c:s:t:v:w:C:i:p:r:help:h option;
 do
         case $option in
                 H) hostname=$OPTARG;;
@@ -29,6 +31,7 @@ do
                 t) MYTEST=$(echo "$OPTARG"  | sed 's/,/\\\|/g') ;;
                 w) WARN=$OPTARG;;
                 c) CRIT=$OPTARG;;
+                r) RESET=$OPTARG;;
                 h) help=1;;
         esac
 done
@@ -48,6 +51,7 @@ only first fit will evaluated
 -h Print this help screen
 -p drive to check
 -t performance counter
+-r reset (delete qry file and create a new file)
 
 
 examples:
@@ -63,12 +67,27 @@ fi
 
 mydir=$(dirname "$0")
 
-echo "SELECT * FROM Win32_PerfFormattedData_PerfDisk_PhysicalDisk where name like \"%$MYPOOL%\"  " > /usr/local/nagios/libexec/wmiquery/tmp/PhysicalDiskDisk."$MYPOOL.$hostname"
-myquery="tmp/PhysicalDiskDisk"."$MYPOOL.$hostname"
 
 
 
-MYTEMP1=$("$mydir"/wmiquery.sh "$hostname" "$myquery" | tail -n +4)
+myquery="$mydir/wmiquery/tmp/PhysicalDiskDisk"."$MYPOOL.$hostname"
+
+if [ $RESET ]; then
+    rm $myquery
+fi
+
+
+if [ ! -f "$myquery" ]; then
+   echo "SELECT * FROM Win32_PerfFormattedData_PerfDisk_PhysicalDisk where name like \"%$MYPOOL%\"  "   > $myquery
+fi
+
+
+
+
+
+
+
+MYTEMP1=$("$mydir"/wmiquery1.sh "$hostname" "$myquery" | tail -n +4)
 
 
 

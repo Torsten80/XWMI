@@ -4,6 +4,9 @@
 #
 # IIS check
 #
+# 20.01.2022 For performance reasons, the query is only written to the temp folder the first time.
+# If you want to change it you have to call the script once (or always) with the parameter -r 1 for reset.
+# wmiquery1.sh is used
 #
 
 
@@ -20,7 +23,7 @@ MYCOUNT=0
 CRIT=80
 WARN=50
 
-while getopts H:b:n:e:o:m:l:c:s:t:v:w:C:i:p:help:h option;
+while getopts H:b:n:e:o:m:l:c:r:s:t:v:w:C:i:p:help:h option;
 do
         case $option in
                 H) hostname=$OPTARG;;
@@ -28,6 +31,7 @@ do
                 t) MYTEST=$(echo "$OPTARG"  | sed 's/,/\\\|/g') ;;
                 w) WARN=$OPTARG;;
                 c) CRIT=$OPTARG;;
+                r) RESET=$OPTARG;;
                 h) help=1;;
         esac
 done
@@ -46,6 +50,7 @@ only first fit will evaluated
 -c (optional) set the critical parameter 
 -h Print this help screen
 -p poolname to check
+-r reset (delete qry file and create a new file) 
 -t counter (without blanks!)
 
 
@@ -62,13 +67,20 @@ fi
 
 
 mydir=$(dirname "$0")
+myquery="$mydir/wmiquery/tmp/iis.$MYPOOL.$hostname"
 
-echo "SELECT * FROM Win32_PerfRawData_W3SVC_WebService where name = \"$MYPOOL\"  " > /usr/local/nagios/libexec/wmiquery/tmp/iis."$MYPOOL.$hostname"
-myquery="tmp/iis"."$MYPOOL.$hostname"
+if [ $RESET ]; then
+    rm $myquery
+fi
+
+
+if [ ! -f "$myquery" ]; then
+    echo "SELECT * FROM Win32_PerfRawData_W3SVC_WebService where name = \"$MYPOOL\""   > $myquery
+fi
 
 
 
-MYTEMP1=$("$mydir"/wmiquery.sh "$hostname" "$myquery" | tail -n +4)
+MYTEMP1=$("$mydir"/wmiquery1.sh "$hostname" "$myquery" | tail -n +4)
 
 
 

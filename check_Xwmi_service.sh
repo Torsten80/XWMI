@@ -12,7 +12,10 @@
 # examples:  /usr/local/nagios/libexec/check_Xwmi_service.sh 111.22.100.42 normal spool 
  #           /usr/local/nagios/libexec/check_Xwmi_service.sh 111.22.100.42 auto snow,win,RemoteRegistry
 #
-
+#
+# 20.01.2022 For performance reasons, the query is only written to the temp folder the first time.
+# If you want to change it you have to call the script once (or always) with the parameter -r 1 for reset.
+# wmiquery1.sh is used
 
 STATE_OK=0
 STATE_WARNING=1
@@ -53,11 +56,22 @@ mydir=$(dirname "$0")
 
 
 
-myquery="service.qry"
+myquery="$mydir/wmiquery/service.qry"
+
+
 
 if  [ "$MODE" = "normal" ] ; then
-  echo "Select Name,DisplayName, state,startmode ,status From Win32_Service where name like \"%$3%\"" > /usr/local/nagios/libexec/wmiquery/tmp/servicetest."$1$3"
-  myquery="tmp/servicetest.$1$3"
+ myquery="$mydir/wmiquery/tmp/servicetest.$1$3"
+
+# reset query
+ if [ "$6" = "r" ] ; then
+  rm $myquery
+ fi
+
+
+ if [ ! -f "$myquery" ]; then
+  echo "Select Name,DisplayName, state,startmode ,status From Win32_Service where name like \"%$3%\"" > "$myquery"
+ fi
 fi
 
 
@@ -65,16 +79,16 @@ fi
 EXINCOUNT=$(echo "$EXIN"  | grep -c '|')
 
 if  [[ "$MODE" = "normal" && "$EXINCOUNT" = "1" ]] ; then
-  myquery="service.qry"
+  myquery="$mydir/wmiquery/service.qry"
 fi
 
 
 if  [ "$MODE" = "auto" ] ; then
- myquery="serviceauto.qry"
+ myquery="$mydir/wmiquery/serviceauto.qry"
 fi
 
 
-MYTEMP1=$("$mydir"/wmiquery.sh "$1" "$myquery" | tail -n +4)
+MYTEMP1=$("$mydir"/wmiquery1.sh "$1" "$myquery" | tail -n +4)
 
 
 IFS=$'\n'
