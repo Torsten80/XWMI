@@ -1,5 +1,9 @@
 Changelog:
 
+20220129
+- For some scripts, the query is now written to the temp folder only the first time for performance reasons. 
+If you want to change it you have to call these scripts once (or always) with the parameter -r 1 for reset.
+
 20220109
 - new variant of the wrapper script because of security concerns (wmiquery_alternative.sh).
 In the old variant, users can see the password used by observing the processes with ps (so encpass encryption does nothing).
