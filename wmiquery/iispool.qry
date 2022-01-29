@@ -1,0 +1,1 @@
+SELECT name, CurrentApplicationPoolState FROM Win32_PerfFormattedData_APPPOOLCountersProvider_APPPOOLWAS where  CurrentApplicationPoolState <> 3
