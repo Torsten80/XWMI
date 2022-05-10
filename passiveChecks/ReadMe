@@ -1,0 +1,15 @@
+Passive checks are to reduce the load for the monitoring server.
+Single checks with wmiquery1.sh or wmiquery.sh sometimes take quite a long time.
+The idea is similar to check_mk to perform only one check that returns various values.
+Here system1.qry is executed with several basic wql queries. 
+
+(SELECT Caption,Description,Size,FreeSpace  FROM Win32_LogicalDisk
+Select Name,AllocatedBaseSize,CurrentUsage,PeakUsage from Win32_PageFileUsage
+SELECT PercentIdleTime FROM Win32_PerfFormattedData_PerfOS_Processor WHERE Name="_Total"
+Select SystemUptime from Win32_PerfFormattedData_PerfOS_System
+Select  year, month ,day, hour, minute, second from Win32_UTCTime
+select TotalVisibleMemorySize, FreePhysicalMemory, TotalVirtualMemorySize, FreeVirtualMemory from Win32_OperatingSystem
+Select state From Win32_Service Where Name = "SENS")
+
+You save some connections. 
+For this only check_Xwmi_system3.sh is executed.
