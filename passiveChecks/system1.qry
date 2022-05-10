@@ -1,0 +1,7 @@
+SELECT Caption,Description,Size,FreeSpace  FROM Win32_LogicalDisk
+Select Name,AllocatedBaseSize,CurrentUsage,PeakUsage from Win32_PageFileUsage
+SELECT PercentIdleTime FROM Win32_PerfFormattedData_PerfOS_Processor WHERE Name="_Total"
+Select SystemUptime from Win32_PerfFormattedData_PerfOS_System
+Select  year, month ,day, hour, minute, second from Win32_UTCTime
+select TotalVisibleMemorySize, FreePhysicalMemory, TotalVirtualMemorySize, FreeVirtualMemory from Win32_OperatingSystem
+Select state From Win32_Service Where Name = "SENS"
