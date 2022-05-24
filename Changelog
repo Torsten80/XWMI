@@ -1,5 +1,9 @@
 Changelog:
 
+20220524
+- it make sense to change disks query , query only DriveType=3 (Monitor CD od DVD us useless)
+SELECT Caption,Description,Size,FreeSpace  FROM Win32_LogicalDisk where DriveType=3
+
 20220129
 - For some scripts, the query is now written to the temp folder only the first time for performance reasons. 
 If you want to change it you have to call these scripts once (or always) with the parameter -r 1 for reset.
