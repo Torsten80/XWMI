@@ -1,4 +1,4 @@
-SELECT Caption,Description,Size,FreeSpace  FROM Win32_LogicalDisk
+SELECT Caption,Description,Size,FreeSpace  FROM Win32_LogicalDisk where DriveType=3
 Select Name,AllocatedBaseSize,CurrentUsage,PeakUsage from Win32_PageFileUsage
 SELECT PercentIdleTime FROM Win32_PerfFormattedData_PerfOS_Processor WHERE Name="_Total"
 Select SystemUptime from Win32_PerfFormattedData_PerfOS_System
