@@ -13,3 +13,7 @@ Select state From Win32_Service Where Name = "SENS")
 
 You save some connections. 
 For this only check_Xwmi_system3.sh is executed.
+
+The path to nagios.cmd may have to be adjusted.
+For example like this:
+sed -i 's/\/var\/lib\/shinken\/nagios.cmd/\/var\/lib\/naemon\/naemon.cmd/g' check_Xwmi_*P.sh
