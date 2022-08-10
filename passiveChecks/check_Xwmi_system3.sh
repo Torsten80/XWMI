@@ -4,7 +4,6 @@
 #
 # one check for more .. them passive
 #
-# Uebergabeparameter:
 # 
 #
 #  
@@ -97,7 +96,6 @@ check_timediff () {
 
 
 
-# STIME="$MYYEAR$MYMONTH$MYDAY$MYHOUR$MYMINUTE$MYSECOND"
  SSTIME=$(date -d "$MYYEAR-$MYMONTH-$MYDAY $MYHOUR:$MYMINUTE:$MYSECOND UTC" +%s)
 
  LTIME1=`date  +%s`
@@ -146,7 +144,7 @@ do
 ############### Disk ################################
  if  [[ "$i" -eq "1" ]] ; then
   xx=`echo $x |  sed  's/\|/?/'`
-# Achtung für DExclude muss $Dw $Dc angegeben werden
+# Attention for DExclude $Dw $Dc must be specified
 #echo "check_Xwmi_disksP.sh  $hostname $Dw $Dc $DExclude"
   $mydir/check_Xwmi_disksP.sh "$xx" $hostname $Dw $Dc "$DExclude" 
  fi

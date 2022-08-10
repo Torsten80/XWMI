@@ -17,7 +17,7 @@ STATE_DEPENDENT=4
 ESTATE=$STATE_OK
 
 CRIT=98
-WARN=90
+WARN=92
 
 
 
@@ -30,13 +30,6 @@ mydir=`dirname $0`
 MYSTATE1="OK"
 
 #MYTEMP1=`$mydir/wmiquery.sh $hostname pagefile.qry | tail -n +5`
-#echo "fsfsdsd= $1"
-#echo "_______"
-
-
-
-
-# xx=`echo $1 |  sed  's//?/'`
 
 
 #MYTEMP1=`echo $1  | sed 's/ //g'| sed 's/?/\n/g'| tail -n 2 `
@@ -44,9 +37,6 @@ MYTEMP1=`echo $1 | sed 's/ //g'| sed 's/?/\n/g' |  tail -n +4`
 
 
 #MYTEMP1=`echo $MYTEMP1 | sed 's/AllocatedBaseSize//g'`
-
-#AllocatedBaseSize 7679|4309|C:\pagefile.sys|4705| |70000|4299|Z:\pagefile.sys|4500|
-#echo "$MYTEMP1"
 
 
 

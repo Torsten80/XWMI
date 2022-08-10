@@ -4,7 +4,7 @@
 #
 # uptime check
 #
-# Uebergabeparameter:
+# parameters:
 # $1: host $2: warning $3 critical $4 exclude drives (C:,D:)
 #
 # bei exclude muss waring und clritical mitgegeben werden 
@@ -54,7 +54,7 @@ MYTEMP1=`echo $1 | sed 's/ //g'| sed 's/?/\n/g'| grep -v "None"  | tail -n +2`
 #MYTEMP1=`echo $1   sed 's/\?/XX/g' `
 #MYTEMP1=`echo $MYTEMP1 | tail -n +4 `
 #echo "++++++++++++++++++++"
-#echo "$MYTEMP1"
+#echo "$MYTE MP1"
 #exit 
 E1=""
 E2=""

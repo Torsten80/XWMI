@@ -4,7 +4,7 @@
 #
 # simple cpu check
 #
-# Uebergabeparameter:
+# parameters:
 # $1: host
 #
 # # - 08.03.2022 shellcheck

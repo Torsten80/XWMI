@@ -4,8 +4,11 @@
 #
 # uptime check PASSIVE!
 #
-# Uebergabeparameter:
+# parameters:
 # $1: output  $2: host $3: warning $4 critical
+#
+# 01.08.2022 warning and critical order corrected, 
+# text for critical changed
 #
 
 
@@ -15,7 +18,7 @@ STATE_CRITICAL=2
 STATE_UNKNOWN=3
 STATE_DEPENDENT=4
 
-CRIT=5
+CRIT=6
 WARN=15
 
 if  [[ $3 ]] ; then
@@ -37,7 +40,6 @@ if  [[ ! $MYTEMP1 ]] ; then
    exit $STATE_UNKNOWN
 fi
 
-# OK - System Uptime is 21 days 23:30:40 (31650min).
 
 MYTMIN=$(expr $MYTEMP1 / 60)
 MYHOUR=$(expr $MYTEMP1 / 3600)
@@ -53,16 +55,16 @@ MYSEC=$(( $MYTEMP1 - $MYTMIN*60 ))
 ESTATE=$STATE_OK
 result="OK - System Uptime is $MYDAY days $MYHOUR1:$MYMIN2:$MYSEC ($MYTMIN min) | 'Uptime Minutes'=$MYTMIN;$WARN;$CRIT;"
 
-if  [[ $MYTMIN -lt $CRIT ]] ; then
-   result="Critical:! System Uptime is $MYDAY days $MYHOUR1:$MYMIN2:$MYSEC ($MYTMIN min) | 'Uptime Minutes'=$MYTMIN;$WARN;$CRIT;" 
-   ESTATE=$STATE_CRITICAL
-fi
       
 if  [[ $MYTMIN -lt $WARN ]] ; then
    result="Warning! System Uptime is $MYDAY days $MYHOUR1:$MYMIN2:$MYSEC ($MYTMIN min) | 'Uptime Minutes'=$MYTMIN;$WARN;$CRIT;" 
-   ESTATE=exit $STATE_WARNING
+   ESTATE=$STATE_WARNING
 fi
       
+if  [[ $MYTMIN -lt $CRIT ]] ; then
+   result="Critical:! System was rebooted - System Uptime is $MYDAY days $MYHOUR1:$MYMIN2:$MYSEC ($MYTMIN min) | 'Uptime Minutes'=$MYTMIN;$WARN;$CRIT;" 
+   ESTATE=$STATE_CRITICAL
+fi
       
 
 echocmd="/bin/echo -e"

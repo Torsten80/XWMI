@@ -4,7 +4,7 @@
 #
 # check free memory
 #
-# Uebergabeparameter:
+# parameters:
 # $1: host  $2:WARN  $3:CRIT
 #
 
@@ -55,7 +55,6 @@ TotalVirtualMemorySize=${a[6]}
 TotalVisibleMemorySize=${a[7]}
 mygb=$(( 1024*1024 ))
 
-#echo "hallo Torsten $FreePhysicalMemory"
 usedPhysicalMemory=$(( $TotalVisibleMemorySize - $FreePhysicalMemory ))
 
 PercentFree=$(( $FreePhysicalMemory*100 / $TotalVisibleMemorySize ))
@@ -72,7 +71,6 @@ FreeVirtualMemory=$(( $FreeVirtualMemory / $mygb ))
 FreePhysicalMemory=$(( $FreePhysicalMemory / $mygb ))
 
 
-#echo "hallo Torsten1111"
 
 
 
