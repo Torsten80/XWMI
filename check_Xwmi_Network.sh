@@ -4,7 +4,7 @@
 #
 # NW Interface check
 #
-#
+# # 30.08.2023 fix blank in devicename
 
 
 
@@ -74,6 +74,7 @@ MYTEMP1=$("$mydir"/wmiquery.sh "$hostname" "$myquery" | tail -n +4)
 MYVALUES=`echo "$MYTEMP1" | tail -n 1`
 MYHEAD=`echo "$MYTEMP1" |  head -n 1`
 
+MYVALUES=($(echo -n "${MYVALUES//[[:space:]]/}"))   
 b=($(echo "$MYVALUES" | tr '|' '\n'))
 
 MYCOUNT=0
