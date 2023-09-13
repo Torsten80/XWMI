@@ -1,4 +1,6 @@
 Changelog:
+20230913
+- check_Xwmi_Network.sh fix blank in devicename
 
 20220524
 - it make sense to change disks query , query only DriveType=3 (Monitor CD od DVD us useless)
